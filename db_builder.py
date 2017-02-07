@@ -26,7 +26,9 @@ import csv
 server = MongoClient('127.0.0.1')
 db = server.modusoperandi
 collection = db['students']
+teachersCollection = db['teachers']
 d = {}
+teacherLi = [d]
 li = [d]
 
 
@@ -54,8 +56,26 @@ with open('peeps.csv') as peepsfile:
         			dic['name'] = row[0]
         			dic['age'] = row[1]
 
-for dictionary in li:
-	collection.insert_one(dictionary)
+with open('teachers.csv') as teachersfile:
+        reader = csv.reader(teachersfile)
+        for row in reader:
+                xx = False
+                for dic in teacherLi:
+                        if 'teacher' in dic and dic['teacher'] == row[1]: #if this teacher already has a document
+                                dic[row[0]] = row[2]
+                                xx = True
+                if xx == False:#we have to make a new dic/doc for this teacher
+                        newDic = {}
+                        newDic['teacher'] = row[1]
+                        newDic[row[0]] = row[2]
+                        teacherLi.append(newDic)
+
+for item in teacherLi:
+        teachersCollection.insert_one(item)
+
+#for dictionary in li:
+#	collection.insert_one(dictionary)
+
 
 #collection.remove({})
 
