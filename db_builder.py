@@ -54,16 +54,16 @@ with open('peeps.csv') as peepsfile:
         			dic['name'] = row[0]
         			dic['age'] = row[1]
 
-#for dictionary in li:
-#	collection.insert_one(dictionary)
+for dictionary in li:
+	collection.insert_one(dictionary)
 
-collection.remove({})
+#collection.remove({})
 
 
 
-#cursor = collection.find()
-#for item in cursor:
-#        print item
+cursor = collection.find()
+for item in cursor:
+    print item
 
 
 
