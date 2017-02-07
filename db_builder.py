@@ -12,16 +12,6 @@ import csv
 # Documents 
 # _____________
 
-# - dbs and collections are not created until a document has been added to them
-
-# TO add a document:
-# 1. create a dictionary
-# 2. insert it into the collection
-
-# 	doc = {‘name’:’bob’, ‘age’:65}
-# 	c.insert_one(doc)
-
-#
 #{
 #id:
 #name:
@@ -30,11 +20,10 @@ import csv
 #}
 
 
-
 #coursesfile = open('courses.csv','r')
 #peepsfile = open('peeps.csv','r')
 
-server = MongoClient('149.89.150.100')
+server = MongoClient('127.0.0.1')
 db = server.modusoperandi
 collection = db['students']
 d = {}
@@ -65,8 +54,17 @@ with open('peeps.csv') as peepsfile:
         			dic['name'] = row[0]
         			dic['age'] = row[1]
 
-for dictionary in li:
-	collection.insert_one(dictionary)
+#for dictionary in li:
+#	collection.insert_one(dictionary)
+
+collection.remove({})
+
+
+
+#cursor = collection.find()
+#for item in cursor:
+#        print item
+
 
 
 ##Add a document: create a dictionary(document) **for each student**
