@@ -16,12 +16,12 @@ classes = ['systems', 'softdev', 'ceramics', 'greatbooks']
 cursor = collection.find()
 for student in cursor:
     gradeSum = 0.0
-    counter = 0.0
+    counter = 1.0
     for course in classes:
-	if course in student:
-		avg += student[course]
-		counter += 1
+    	if course in student:
+	        gradeSum += int(student[course])
+	        counter += 1
     avg = gradeSum/counter
-    dict = {'average': avg}
     student['average'] = avg
-    print "Name: "+student["name"] + "\nID: "+student["id"] + "\nAverage: " + student['average']
+    if 'name' in student and 'id' in student:
+        print "Name:"+student["name"] +"\nID:"+student["id"]+ "\nAverage:"+str(student["average"]) +"\n"
