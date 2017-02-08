@@ -56,6 +56,14 @@ with open('peeps.csv') as peepsfile:
         			dic['name'] = row[0]
         			dic['age'] = row[1]
 
+
+
+
+#teachersCollection.remove({})
+
+
+
+
 with open('teachers.csv') as teachersfile:
         reader = csv.reader(teachersfile)
         for row in reader:
@@ -68,24 +76,66 @@ with open('teachers.csv') as teachersfile:
                         newDic = {}
                         newDic['teacher'] = row[1]
                         newDic[row[0]] = row[2]
+                        newDic['students'] = []
                         teacherLi.append(newDic)
 
+
+classesList = ['softdev', 'ceramics', 'systems', 'greatbooks']
+
+
+nastyWoman = collection.find()
+for boss in nastyWoman:#each boss is a student document object
+        if 'id' in boss:
+                studentId = boss['id']
+                for k in boss: #k is a student attribute, in this case it shud be a class
+                        if k in classesList:
+                                for teacher in teacherLi: #teacher document object
+                                        for key in teacher:
+                                                if key == k: #if this teacher teaches the class I want to enter
+                                                        if 'students' in teacher:
+                                                                print "hi"
+                                                                print studentId
+                                                                print teacher['students']
+                                                                teacher['students'].append(studentId)
+
+
+
+
+
+#teachersCollection.remove({})
 for item in teacherLi:
-        teachersCollection.insert_one(item)
+       teachersCollection.insert_one(item)
+
+
+#Each teacher document should contain their name, class, period and students in that class
+#The student data should be a list of ids that match the ids of students from the other collection.
+
+
+
+
+
+
+#for item in teacherLi:
+#       teachersCollection.insert_one(item)
 
 #for dictionary in li:
 #	collection.insert_one(dictionary)
 
 
-#collection.remove({})
-
 
 
 cursor = collection.find()
-for item in cursor:
-    print item
+for itemA in cursor:
+    print str(itemA) + "\n"
 
 
+print "\n\n\n"
+
+
+cursor1 = teachersCollection.find()
+for itemB in cursor1:
+    print itemB
+    print "\n"
 
 ##Add a document: create a dictionary(document) **for each student**
 
