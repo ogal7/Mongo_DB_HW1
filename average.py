@@ -6,11 +6,22 @@ db = server.modusoperandi
 collection = db['students']
 classes = ['systems', 'softdev', 'ceramics', 'greatbooks']
 
+#print collection.count()
+#cursor1 = collection.find()
+#for i in cursor1:
+#	print i
+#	if "name" in i:
+#		print i["name"]
+
 cursor = collection.find()
 for student in cursor:
-    avg = 0
+    gradeSum = 0.0
+    counter = 0.0
     for course in classes:
-        avg += student[course]
+	if course in student:
+		avg += student[course]
+		counter += 1
+    avg = gradeSum/counter
     dict = {'average': avg}
     student['average'] = avg
-    print student['average']
+    print "Name: "+student["name"] + "\nID: "+student["id"] + "\nAverage: " + student['average']
